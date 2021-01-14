@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommonEditText">
+        <attr name="android:hint"/>
+        <attr name="showHintView" format="boolean"/>
+        <attr name="hintColor" format="color" />
+        <attr name="hintSize" format="dimension" />
+        <attr name="android:drawableStart"/>
+        <attr name="android:drawablePadding" />
+        <attr name="editHeight" format="dimension" />
+        <attr name="editPadding" format="dimension" />
+        <attr name="editPaddingLeft" format="dimension" />
+        <attr name="editPaddingRight" format="dimension" />
+        <attr name="editPaddingTop" format="dimension" />
+        <attr name="editPaddingBottom" format="dimension" />
+        <attr name="android:background"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="android:text" />
+        <attr name="android:singleLine"/>
+        <attr name="clearImageView" format="reference"/>
+        <attr name="encryptImageView" format="reference"/>
+        <attr name="encryptImageVisibility">
+            <enum name="visible" value="0"/>
+            <enum name="gone" value="8"/>
+        </attr>
+        <attr name="android:inputType" />
+    </declare-styleable>
+</resources>
