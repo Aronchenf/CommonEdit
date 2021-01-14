@@ -14,7 +14,7 @@
         <attr name="editPaddingTop" format="dimension" />
         <attr name="editPaddingBottom" format="dimension" />
         <attr name="android:background"/>
-        <attr name="android:textSize"/>
+        <attr name="contentSize" format="dimension"/>
         <attr name="android:textColor"/>
         <attr name="android:text" />
         <attr name="android:singleLine"/>

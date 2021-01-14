@@ -49,7 +49,7 @@ class CommonEditText @JvmOverloads constructor(
     /**
      * 提示字体大小
      */
-    private var hintSize = 16f
+    private var hintSize = 14f
 
     /**
      * 左边图标
@@ -174,7 +174,7 @@ class CommonEditText @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CommonEditText)
         hintText = typedArray.getString(R.styleable.CommonEditText_android_hint)
         hintColor = typedArray.getColor(R.styleable.CommonEditText_hintColor, Color.GRAY)
-        hintSize = typedArray.getDimension(R.styleable.CommonEditText_hintSize, 16f)
+        hintSize = typedArray.getDimension(R.styleable.CommonEditText_hintSize, 14f)
         showHintView = typedArray.getBoolean(R.styleable.CommonEditText_showHintView, true)
         drawableId = typedArray.getResourceId(R.styleable.CommonEditText_android_drawableStart, -1)
         drawablePadding =
@@ -207,7 +207,7 @@ class CommonEditText @JvmOverloads constructor(
             )
         editBackground =
             typedArray.getDrawable(R.styleable.CommonEditText_android_background)
-        contentSize = typedArray.getDimension(R.styleable.CommonEditText_android_textSize, 13f)
+        contentSize = typedArray.getDimension(R.styleable.CommonEditText_contentSize, 13f)
 
         textColor = typedArray.getColor(R.styleable.CommonEditText_android_textColor, Color.BLACK)
         content = typedArray.getString(R.styleable.CommonEditText_android_text)
