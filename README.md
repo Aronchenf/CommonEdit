@@ -14,7 +14,7 @@ allprojects {
 
 在项目的build.gradle添加如下依赖：
 ```
- implementation 'com.github.Aronchenf:UniversalEdit:1.0'
+ implementation 'com.github.Aronchenf:CommonEdit:1.0'
 ```
 
 ### 在xml中引用
