@@ -1,4 +1,4 @@
-# UniversalEdit [![](https://jitpack.io/v/Aronchenf/UniversalEdit.svg)](https://jitpack.io/#Aronchenf/UniversalEdit)
+# CommonEdit [![](https://jitpack.io/v/Aronchenf/UniversalEdit.svg)](https://jitpack.io/#Aronchenf/UniversalEdit)
 一个自定义EditText，功能包括有一键清除、密码显示、错误校验等。<br/>
 
 ## 如何使用
