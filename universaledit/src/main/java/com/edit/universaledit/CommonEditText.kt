@@ -11,7 +11,6 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,6 +20,10 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
+
 
 class CommonEditText @JvmOverloads constructor(
     context: Context,
@@ -28,6 +31,34 @@ class CommonEditText @JvmOverloads constructor(
     defStyleAttr: Int = android.R.attr.editTextStyle
 ) : RelativeLayout(context, attrs, defStyleAttr), TextWatcher, View.OnFocusChangeListener,
     View.OnClickListener {
+
+    companion object {
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "text", event = "textAttrChanged")
+        fun getText(commonEditText: CommonEditText): String =
+            commonEditText.getText().toString().trim()
+
+        @JvmStatic
+        @BindingAdapter("text")
+        fun setText(commonEditText: CommonEditText, value: String?) {
+            val currentString = commonEditText.getText()
+            if (!value.equals(currentString, true)) {
+                commonEditText.setText(value)
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["textAttrChanged"], requireAll = false)
+        fun setChangeListener(commonEditText: CommonEditText, listener: InverseBindingListener) {
+            commonEditText.editTextView.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    listener.onChange()
+                }
+                override fun afterTextChanged(p0: Editable?) {}
+            })
+        }
+    }
 
     private val hintID = 0x01
     private val editID = 0x02
@@ -64,7 +95,7 @@ class CommonEditText @JvmOverloads constructor(
     /**
      * 输入内容
      */
-    private var content: String? = null
+    private var text: String = ""
 
     /**
      * 输入框height
@@ -178,7 +209,10 @@ class CommonEditText @JvmOverloads constructor(
         showHintView = typedArray.getBoolean(R.styleable.CommonEditText_showHintView, true)
         drawableId = typedArray.getResourceId(R.styleable.CommonEditText_android_drawableStart, -1)
         drawablePadding =
-            typedArray.getDimensionPixelOffset(R.styleable.CommonEditText_android_drawablePadding, -1)
+            typedArray.getDimensionPixelOffset(
+                R.styleable.CommonEditText_android_drawablePadding,
+                -1
+            )
         editHeight = typedArray.getLayoutDimension(
             R.styleable.CommonEditText_editHeight,
             LayoutParams.WRAP_CONTENT
@@ -210,7 +244,7 @@ class CommonEditText @JvmOverloads constructor(
         contentSize = typedArray.getDimension(R.styleable.CommonEditText_contentSize, 13f)
 
         textColor = typedArray.getColor(R.styleable.CommonEditText_android_textColor, Color.BLACK)
-        content = typedArray.getString(R.styleable.CommonEditText_android_text)
+        text = typedArray.getString(R.styleable.CommonEditText_text).toString()
         clearImage = typedArray.getResourceId(
             R.styleable.CommonEditText_clearImageView,
             R.drawable.ic_delete_icon
@@ -230,6 +264,7 @@ class CommonEditText @JvmOverloads constructor(
         singleLine = typedArray.getBoolean(R.styleable.CommonEditText_android_singleLine, false)
         typedArray.recycle()
         initView()
+        editTextView.setText(text)
         initConfig()
     }
 
@@ -368,7 +403,6 @@ class CommonEditText @JvmOverloads constructor(
             hint = hintText
             inputType = contentType
             setBackgroundColor(Color.TRANSPARENT)
-            setText(content)
             setHintTextColor(hintColor)
             isSingleLine = singleLine
         }
@@ -382,6 +416,7 @@ class CommonEditText @JvmOverloads constructor(
             lineView.visibility = GONE
         }
         lineView.setBackgroundColor(Color.GRAY)
+
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -487,15 +522,16 @@ class CommonEditText @JvmOverloads constructor(
     /**
      * 设置输入框内容
      */
-    fun setContent(inputContent: String?) {
-        this.content = inputContent
-        editTextView.setText(inputContent)
+
+    fun setText(content: String?) {
+        editTextView.setText(content)
     }
 
     /**
      * 获取输入框内容
      */
-    fun getContent(): String {
+
+    fun getText(): String? {
         return editTextView.text.toString().trim()
     }
 
@@ -716,14 +752,17 @@ class CommonEditText @JvmOverloads constructor(
     override fun afterTextChanged(s: Editable) {
         textWatcher?.afterTextChanged(s)
         if (s.isNotEmpty()) {
+            //显示HintView
             if (!hintViewVisible && showHintView) {
                 showHintView()
                 hintViewVisible = true
             }
+            //控制ErrorView的显示与隐藏
             if (!editTextView.verifyString(regulation) && showError) {
                 errorView.visibility = VISIBLE
                 errorView.text = errorString
-            }else if (editTextView.verifyString(regulation) && showError){
+
+            } else if (editTextView.verifyString(regulation) && showError) {
                 errorView.visibility = GONE
             }
         } else {

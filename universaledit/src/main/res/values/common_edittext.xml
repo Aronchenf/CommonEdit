@@ -16,7 +16,7 @@
         <attr name="android:background"/>
         <attr name="contentSize" format="dimension"/>
         <attr name="android:textColor"/>
-        <attr name="android:text" />
+        <attr name="text" format="string" />
         <attr name="android:singleLine"/>
         <attr name="clearImageView" format="reference"/>
         <attr name="encryptImageView" format="reference"/>
