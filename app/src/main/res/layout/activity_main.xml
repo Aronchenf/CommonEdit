@@ -33,7 +33,8 @@
             android:hint="@string/app_name"
             android:textColor="@color/red"
             android:textSize="10sp"
-            app:text="@={name}"
+            app:encryptImageVisibility="visible"
+            app:text="@={viewModel.name}"
             app:hintColor="@color/colorPrimaryDark" />
 
         <Button

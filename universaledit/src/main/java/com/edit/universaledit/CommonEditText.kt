@@ -304,6 +304,7 @@ class CommonEditText @JvmOverloads constructor(
                 addRule(ALIGN_BOTTOM, editID)
                 addRule(ALIGN_TOP, editID)
                 rightMargin = px2dip(20).toInt()
+                bottomMargin=px2dip(20).toInt()
             }
             addView(mEncryptImageView, mEncryptParams)
 
@@ -311,7 +312,7 @@ class CommonEditText @JvmOverloads constructor(
                 addRule(LEFT_OF, mEncryptImageView.id)
                 addRule(ALIGN_BOTTOM, editID)
                 addRule(ALIGN_TOP, editID)
-                rightMargin = px2dip(20).toInt()
+                rightMargin = px2dip(40).toInt()
             }
             addView(mClearImageView, mClearImageParams)
         } else {
