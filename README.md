@@ -17,7 +17,7 @@ allprojects {
  implementation 'com.github.Aronchenf:CommonEdit:1.0.2'
 ```
 
-### 在xml中引用
+## 在xml中引用
 
 ```xml
     <com.edit.universaledit.CommonEditText
